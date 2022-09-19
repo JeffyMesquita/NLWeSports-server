@@ -11,8 +11,7 @@ model Game {
   id        String @id @default(uuid())
   title     String
   bannerUrl String
-
-  ads Ad[]
+  ads       Ad[]
 }
 
 model Ad {
@@ -26,6 +25,5 @@ model Ad {
   hourEnd         Int
   useVoiceChannel Boolean
   createdAt       DateTime @default(now())
-
-  game Game @relation(fields: [gameId], references: [id])
+  game            Game     @relation(fields: [gameId], references: [id])
 }
