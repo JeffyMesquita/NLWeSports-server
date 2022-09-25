@@ -44,6 +44,7 @@ app.get('/games/:id/ads', async (request, response) => {
       yearsPlaying: true,
       hourStart: true,
       hourEnd: true,
+      discord: true,
     },
     where: {
       gameId,
@@ -56,7 +57,7 @@ app.get('/games/:id/ads', async (request, response) => {
   const data = ads.map((ad) => {
     return {
       ...ad,
-      weekDays: ad.weekDays.split(','),
+      weekDays: ad.weekDays?.split(','),
       hourStart: covertMinutesToHourString(ad.hourStart),
       hourEnd: covertMinutesToHourString(ad.hourEnd),
     };
@@ -81,14 +82,16 @@ app.post('/games/:id/ads', async (request, response) => {
       name: body.name,
       yearsPlaying: body.yearsPlaying,
       discord: body.discord,
-      weekDays: body.weekDays.join(','),
+      weekDays: body.weekDays?.join(','),
       hourStart: covertHourStringToMinutes(body.hourStart),
       hourEnd: covertHourStringToMinutes(body.hourEnd),
       useVoiceChannel: body.useVoiceChannel,
     },
   });
 
-  return response.status(201).json(ad);
+  return response
+    .status(201)
+    .json({ result: 'success', message: 'Success in create your ads', data: ad });
 });
 
 app.get('/ads/:id/discord', async (request, response) => {
