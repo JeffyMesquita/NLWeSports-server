@@ -91,7 +91,11 @@ app.post('/games/:id/ads', async (request, response) => {
 
   return response
     .status(201)
-    .json({ result: 'success', message: 'Success in create your ads', data: ad });
+    .json({
+      result: 'success',
+      message: 'Success in create your ads',
+      data: ad,
+    });
 });
 
 app.get('/ads/:id/discord', async (request, response) => {
@@ -107,7 +111,9 @@ app.get('/ads/:id/discord', async (request, response) => {
   });
 
   return response.json({
-    discord: ad?.discord,
+    result: 'success',
+    message: 'Success in get discord',
+    data: { discord: ad?.discord },
   });
 });
 
